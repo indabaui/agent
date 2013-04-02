@@ -1,0 +1,19 @@
+{
+  "name": "indagent",
+  "version": "0.0.0",
+  "description": "Minimal SuperAgent customizations for working with Indaba Music API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "Readme.md",
+  "devDependencies": {
+    "mocha": "~1.8.2"
+  },
+  "dependencies": {
+    "superagent": "~0.13.0"
+  }
+}

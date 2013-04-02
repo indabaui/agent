@@ -1,0 +1,15 @@
+{
+  "name": "indagent",
+  "repo": "stereosteve/indagent",
+  "description": "Minimal SuperAgent customizations for working with Indaba Music API",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "visionmedia/superagent": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}
