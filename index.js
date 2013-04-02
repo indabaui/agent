@@ -1,10 +1,14 @@
 var superagent = require('superagent');
 
-var indagent = module.exports = {}
+var indagent = module.exports = {};
 
-indagent._endpoint = "https://lydian.indabamusic.com"
+indagent._endpoint = "https://lydian.indabamusic.com";
+indagent._token = undefined;
 
 superagent.Request.prototype.perform = function(cb) {
+  if (indagent._token) {
+    this.set('Authorization', "Bearer " + indagent._token);
+  }
   this.end(jsendCallback(cb));
 }
 
@@ -18,6 +22,14 @@ indagent.get = function(url, data, fn){
 };
 
 
+indagent.post = function(url, data, fn){
+  url = indagent._endpoint + url;
+  var req = superagent('POST', url);
+  if ('function' === typeof data) fn = data, data = null;
+  if (data) req.send(data);
+  if (fn) req.perform(fn);
+  return req;
+};
 
 
 function jsendCallback(cb) {
