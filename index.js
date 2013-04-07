@@ -1,33 +1,31 @@
-var superagent = require('superagent');
+var agent = module.exports = require('superagent');
 
-var indagent = module.exports = {};
+agent._endpoint = "https://lydian.indabamusic.com";
+agent._token = undefined;
 
-indagent._endpoint = "https://lydian.indabamusic.com";
-indagent._token = undefined;
-
-superagent.Request.prototype.perform = function(cb) {
-  if (indagent._token) {
-    this.set('Authorization', "Bearer " + indagent._token);
+agent.Request.prototype.inEnd = function(cb) {
+  if (agent._token) {
+    this.set('Authorization', "Bearer " + agent._token);
   }
   this.end(jsendCallback(cb));
 }
 
-indagent.get = function(url, data, fn){
-  url = indagent._endpoint + url;
-  var req = superagent('GET', url);
+agent.inGet = function(url, data, fn){
+  url = agent._endpoint + url;
+  var req = agent('GET', url);
   if ('function' === typeof data) fn = data, data = null;
   if (data) req.query(data);
-  if (fn) req.perform(fn);
+  if (fn) req.inEnd(fn);
   return req;
 };
 
 
-indagent.post = function(url, data, fn){
-  url = indagent._endpoint + url;
-  var req = superagent('POST', url);
+agent.inPost = function(url, data, fn){
+  url = agent._endpoint + url;
+  var req = agent('POST', url);
   if ('function' === typeof data) fn = data, data = null;
   if (data) req.send(data);
-  if (fn) req.perform(fn);
+  if (fn) req.inEnd(fn);
   return req;
 };
 

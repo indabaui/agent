@@ -1,55 +1,70 @@
 
-# indagent
+# indaba agent
 
   Minimal SuperAgent customizations for working with Indaba Music API
 
-  * Prepends `indagent._endpoint` to URLs so that you can use relative paths
-  * Includes `indagent._token` as Authorization header if it is set
-  * Using `perform` instead of `end` parses jSend response and provides error first callback
+  * Use standard SuperAgent API unmodified
+  * Use `agent.inGet`, `agent.inPost`, and `request.inEnd` for extra convenience with Indaba API.
+  * Set `agent._endpoint` to use relative paths
+  * Set `agent._token` to include Authorization header in each request
+  * Use `inEnd` instead of `end` to parse jSend response and provides error first callback
 
 ## Installation
 
-    $ component install stereosteve/indagent
+    $ component install indabaui/agent
 
 ## API
 
 ```js
 
-var indagent = require('indagent');
+var agent = require('agent');
 
 // path + callback
-indagent.get('/opportunities', function(err, data) {
+agent.inGet('/opportunities', function(err, data) {
   console.log(data);
 });
 
 // path + query + callback
-indagent.get('/opportunities', {limit: 10}, function(err, data) {
+agent.inGet('/opportunities', {limit: 10}, function(err, data) {
   console.log(data);
 });
 
 // superagent chaining style
-indagent.get('/opportunities')
+agent.inGet('/opportunities')
   .query({limit: 10})
   .query({offset: 80})
-  .perform(function(err, data) {
+  .inEnd(function(err, data) {
     console.log(data);
   });
 
 // one off authenticated request
-indagent.get('/whoami')
+agent.inGet('/whoami')
   .query({access_token: 'xxxx'})
-  .perform(function(err, data) {
+  .inEnd(function(err, data) {
     console.log(data);
   });
 
-// set `indagent._token` and you can omit access_token on subsequent requests
-indagent._token = 'xxxx';
-indagent.get('/whoami')
-  .perform(function(err, data) {
+// set `agent._token` and you can omit access_token on subsequent requests
+agent._token = 'xxxx';
+agent.inGet('/whoami')
+  .inEnd(function(err, data) {
     console.log(data);
   });
 ```
    
+## Tokens on the server
+
+Do not set `agent._token` on the server.  There is only one instance of agent, so this token is not unique to any context.
+Instead, you should explicitly include a user's token when using `agent` server side:
+
+```js
+// one off authenticated request
+agent.inGet('/whoami')
+  .query({access_token: 'xxxx'})
+  .inEnd(function(err, data) {
+    console.log(data);
+  });
+```
 
 ## License
 
