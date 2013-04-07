@@ -1,6 +1,6 @@
 {
-  "name": "indagent",
-  "repo": "stereosteve/indagent",
+  "name": "agent",
+  "repo": "indabaui/agent",
   "description": "Minimal SuperAgent customizations for working with Indaba Music API",
   "version": "0.0.1",
   "keywords": [],
