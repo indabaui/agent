@@ -36,6 +36,15 @@ describe('agent.inGet', function() {
   });
 });
 
+describe('agent.inGetAll', function() {
+  it('gets all records', function(done) {
+    agent.inGetAll('/instruments', function(err, data) {
+      assert.ok(data.length > 200);
+      done(err);
+    });
+  });
+})
+
 describe('agent.inGet with token', function() {
   it('has err without token', function(done) {
     agent.inGet('/whoami', function(err, data) {

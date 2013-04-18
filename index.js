@@ -19,6 +19,27 @@ agent.inGet = function(url, data, fn){
   return req;
 };
 
+agent.inGetAll = function(url, data, fn) {
+  var results = [];
+  if (!data) data = {};
+  else if ('function' === typeof data) fn = data, data = {};
+  function getPage() {
+    data.offset = results.length;
+    data.limit = 50;
+    agent.inGet(url, data, function(err, page) {
+      if (err) return fn(err);
+      page.forEach(function(item) {
+        results.push(item);
+      });
+      if (page.length === 0) {
+        fn(null, results);
+      } else {
+        getPage();
+      }
+    });
+  }
+  getPage();
+}
 
 agent.inPost = function(url, data, fn){
   url = agent._endpoint + url;

@@ -4,7 +4,7 @@
   Minimal SuperAgent customizations for working with Indaba Music API
 
   * Use standard SuperAgent API unmodified
-  * Use `agent.inGet`, `agent.inPost`, and `request.inEnd` for extra convenience with Indaba API.
+  * Use `agent.inGet`, `agent.inGetAll`, `agent.inPost`, and `request.inEnd` for extra convenience with Indaba API.
   * Set `agent._endpoint` to use relative paths
   * Set `agent._token` to include Authorization header in each request
   * Use `inEnd` instead of `end` to parse jSend response and provides error first callback
@@ -36,6 +36,11 @@ agent.inGet('/opportunities')
   .inEnd(function(err, data) {
     console.log(data);
   });
+
+// inGetAll
+agent.inGetAll('/opportunities', function(err, data) {
+  console.log(data);
+});
 
 // one off authenticated request
 agent.inGet('/whoami')
