@@ -1,5 +1,5 @@
 {
-  "name": "indagent",
+  "name": "indabaui-agent",
   "version": "0.0.0",
   "description": "Minimal SuperAgent customizations for working with Indaba Music API",
   "main": "index.js",
